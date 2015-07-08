@@ -3,9 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>JS Inspirational Quotes</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" />
+    <link href='http://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <div class="quote-container">
+        <div class="quote-entry">
+            <h2 class="quote-content">"Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live."</h2>
+            <h3 class="quote-author">- Martin Golding</h3>
+        </div>
+    </div>
+    <div class="right-sidebar">
+        <h2 class="sidebar-title">Magical Random Quote!</h2>
+        <button class="button generate">Generate Quote</button>
+        
+        <h2 class="sidebar-title">Share a Quote!</h2>
+        <textarea class="input-quote" placeholder="Enter your words of wisdom here.."></textarea><br>
+        <input class="input-author" type="text" placeholder="Enter your name here.."><br>
+        <button class="button submit">Share Quote</button>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.js"></script>
     <script src="quotes.js"></script>

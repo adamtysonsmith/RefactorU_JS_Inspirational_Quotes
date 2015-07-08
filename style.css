@@ -1,0 +1,80 @@
+* {
+    font-family: 'Courgette', cursive;
+}
+
+
+.quote-container {
+    position: fixed;
+    width: 65%;
+    height: 100%;
+    left: 0;
+    background-color: antiquewhite;
+    
+    padding: 50px;
+    padding-right: 100px;
+    color: #1f1f5d;
+    
+    overflow: auto;
+}
+
+
+.right-sidebar {
+    position: fixed;
+    float: right;
+    width: 30%;
+    height: 100%;
+    left: 70%;
+    background-color: aliceblue;
+}
+.sidebar-title {
+    color: #5a4528;
+    padding: 20px;
+    font-size: 35px;
+    margin: 0;
+    margin-top: 50px;
+}
+
+
+.quote-entry {
+    border-bottom: 4px dotted aliceblue;
+}
+.quote-content {
+    font-size: 30px;
+    margin-bottom: 0;
+    margin-top: 40px;
+    font-weight: 100;
+}
+.quote-author {
+    font-family: 'Slabo 27px', serif;
+    margin-bottom: 40px;
+}
+
+
+.button {
+    font-family: 'Slabo 27px', serif;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: saddlebrown;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    margin: 20px;
+}
+.button:hover {
+    background-color: #53a3ea;
+}
+
+.input-quote {
+    font-family: 'Slabo 27px', serif;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    width: 70%;
+    height: 100px;
+}
+.input-author {
+    font-family: 'Slabo 27px', serif;
+    margin-left: 20px;
+    width: 35%;
+    height: 30px;
+}
