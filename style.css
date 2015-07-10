@@ -14,7 +14,7 @@
     padding-right: 100px;
     color: #1f1f5d;
     
-    overflow: auto;
+    overflow: scroll;
 }
 
 
@@ -45,10 +45,23 @@
     font-weight: 100;
 }
 .quote-author {
+    display: inline-block;
     font-family: 'Slabo 27px', serif;
     margin-bottom: 40px;
 }
-
+.quote-stars {
+    color: #ff8000;
+}
+.quote-delete {
+    display: none;
+/*    display: inline-block;*/
+    margin-left: 50px;
+    color: red;
+    text-decoration: none;
+}
+.quote-delete:hover {
+    text-decoration: underline;
+}
 
 .button {
     font-family: 'Slabo 27px', serif;
