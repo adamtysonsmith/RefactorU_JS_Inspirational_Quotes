@@ -36,27 +36,27 @@ var initialData = {
         { author: 'Martin Golding',
           quote: 'Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.',
           rating: 3,
-          quoteid: '0'
+          quoteid: 0
         },
         { author: 'Edsger Dijkstra',
           quote: 'If debugging is the process of removing software bugs, then programming must be the process of putting them in.',
           rating: 4,
-          quoteid: '1'
+          quoteid: 1
         },
         { author: 'Eric S. Raymond',
           quote: 'Computer science education cannot make anybody an expert programmer any more than studying brushes and pigment can make somebody an expert painter.',
           rating: 5,
-          quoteid: '2'
+          quoteid: 2
         },
         { author: 'Michael Sinz',
           quote: 'Programming is like sex. One mistake and you have to support it for the rest of your life.',
           rating: 2,
-          quoteid: '3'
+          quoteid: 3
         },
         { author: 'Gerald Weinberg',
           quote: 'If builders built buildings the way programmers wrote programs, then the first woodpecker that came along would destroy civilization.',
           rating: 2,
-          quoteid: '4'
+          quoteid: 4
         }
 ]};
 
@@ -140,8 +140,6 @@ var readDataFromLocalStorage = function() {
 
 
 
-
-
 //////////////////////////////////////////////////////////////////////////////////
 // II. Receiving User Input and Updating Data Structures
 //////////////////////////////////////////////////////////////////////////////////
@@ -152,16 +150,18 @@ var readDataFromLocalStorage = function() {
 
 // Define a Quote constructor
 var Quote = (function() {
-    // We are starting the count from 4 because our initial data brings the count up to 4
-    var quoteidCounter = 4;
-    var allQuotes = initialData.quotes;
+    // Slice this to make a copy of the array
+    
+    // Our allQuotes somehow needs access to our dynamic data
+    // Every time the page refreshes, the array starts from initialData, ignoring the persisted data
+    var allQuotes = initialData.quotes.slice();
+    
+    var getUniqueQuoteID = function() {
+        var lastID = _.sortBy(allQuotes, 'quoteid').reverse()[0].quoteid;
+        return ++lastID;
+    }
     
     var Quote = function(quote, author) {
-        var getUniqueQuoteID = function() {
-            var lastID = _.sortBy(allQuotes, 'quoteid').reverse()[0];
-            return lastID;
-        }
-        
         this.author = author;
         this.quote = quote;
         this.rating = 0;
@@ -170,8 +170,8 @@ var Quote = (function() {
         allQuotes.push(this);
     }
     
-    Quote.pushNewQuote = function() {
-        console.log(allQuotes);
+    Quote.logInfo = function() {
+        console.log('allQuotes Array:', allQuotes);
     }
     
     return Quote;
@@ -237,7 +237,7 @@ $('.button.generate').on('click', function(){
 
 // Show the delete link on hover
 $('.quote-container').on('mouseenter', '.quote-entry', function(){
-        $(this).find('.quote-delete').css('display','inline-block');
+    $(this).find('.quote-delete').css('display','inline-block');
 }).on('mouseleave', '.quote-entry', function(){
     $(this).find('.quote-delete').css('display','none');
 });
@@ -246,7 +246,7 @@ $('.quote-container').on('mouseenter', '.quote-entry', function(){
 $('.quote-container').on('click', '.quote-delete', function(){
     // Get the unique ID of the element clicked
     var entryID = $(this).parent().attr('data-quoteid');
-    console.log('Entry id is',entryID);
+    console.log('Entry id is', entryID);
     
     // Remove the item from the Data Object
     quoteDataObject = { 
@@ -305,16 +305,8 @@ $('.quote-container').on('click', '.quote-delete', function(){
 // III. Updating the User Interface
 //////////////////////////////////////////////////////////////////////////////////
 
-// Generate our HTML as strings
-var quoteContent = '<h2 class="quote-content">"{{quote}}"</h2>';
-var quoteStars = '<span class="quote-stars">{{rating}}&nbsp;&nbsp; &#9733;&#9733;&#9733;&star;&star;</span>';
-var quoteAuthor = '<h3 class="quote-author">-{{author}}' + quoteStars + '</h3>';
-var quoteDelete = '<a href="javascript:void(0)" class="quote-delete">Delete Quote</a>';
-
-// Handlebars Template Code
-var quoteEntry = '{{#each quotes}}<div class="quote-entry" data-quoteid="{{quoteid}}">'
-                 + quoteContent + quoteAuthor + quoteDelete
-                 + '</div>{{/each}}';
+// Grab the content from our script template as a string
+var quoteEntry = $('#quote-entry-template').text();
 
 // Handlebars Template Compilation
 var quoteTemplate = Handlebars.compile(quoteEntry);

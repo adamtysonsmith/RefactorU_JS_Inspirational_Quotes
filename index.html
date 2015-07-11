@@ -9,9 +9,7 @@
     <link href='http://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <div class="quote-container">
-        {{ quoteTemplate }}
-    </div>
+    <div class="quote-container"></div>
     <div class="right-sidebar">
         <h2 class="sidebar-title">Magical Random Quote!</h2>
         <button class="button generate">Generate Quote</button>
@@ -21,6 +19,18 @@
         <input class="input-author" type="text" placeholder="Enter your name here.."><br>
         <button class="button submit">Share Quote</button>
     </div>
+    
+    <script id="quote-entry-template" type="text/x-handlebars-template">
+        {{#each quotes}}
+        <div class="quote-entry" data-quoteid="{{quoteid}}">
+            <h2 class="quote-content">"{{quote}}"</h2>
+            <h3 class="quote-author">-{{author}}
+                <span class="quote-stars">{{rating}}&nbsp;&nbsp; &#9733;&#9733;&#9733;&star;&star;</span>
+            </h3>
+            <a href="javascript:void(0)" class="quote-delete">Delete Quote</a>
+        </div>
+        {{/each}}
+    </script>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.min.js"></script>
