@@ -150,11 +150,11 @@ var readDataFromLocalStorage = function() {
 
 // Define a Quote constructor
 var Quote = (function() {
-    // Slice this to make a copy of the array
-    
-    // Our allQuotes somehow needs access to our dynamic data
-    // Every time the page refreshes, the array starts from initialData, ignoring the persisted data
-    var allQuotes = initialData.quotes.slice();
+    // This is keeping track of all our quotes, keeping in mind that
+    // we may need to start tracking from either initial data or the LS
+    var allQuotes = readDataFromLocalStorage() !== null
+                    ? readDataFromLocalStorage().quotes
+                    : initialData.quotes.slice();
     
     var getUniqueQuoteID = function() {
         var lastID = _.sortBy(allQuotes, 'quoteid').reverse()[0].quoteid;
@@ -225,7 +225,7 @@ var generateRandomQuote = function(data) {
     alert('"' + random.quote + '"' + '\n\n-' + random.author);
 }
 $('.button.generate').on('click', function(){
-    generateRandomQuote(initialData);
+    generateRandomQuote(quoteDataObject);
 });
 
 
@@ -246,7 +246,8 @@ $('.quote-container').on('mouseenter', '.quote-entry', function(){
 $('.quote-container').on('click', '.quote-delete', function(){
     // Get the unique ID of the element clicked
     var entryID = $(this).parent().attr('data-quoteid');
-    console.log('Entry id is', entryID);
+    entryID = parseInt(entryID, 10);
+    console.log('Entry id is', typeof entryID);
     
     // Remove the item from the Data Object
     quoteDataObject = { 
@@ -254,7 +255,7 @@ $('.quote-container').on('click', '.quote-delete', function(){
             return obj.quoteid !== entryID;
         })
     }
-    console.log('This object should have removed the item',quoteDataObject);
+    console.log('This object should have removed the item', quoteDataObject);
     
     // We operated on the QDO succesfully - but we need to update LS before calling updateQuoteTemplate()
     updateLocalStorage();
